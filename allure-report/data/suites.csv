@@ -1,3 +1,3 @@
 "Status","Start Time","Stop Time","Duration in ms","Parent Suite","Suite","Sub Suite","Test Class","Test Method","Name","Description"
-"passed","Tue Dec 26 11:40:42 EET 2023","Tue Dec 26 11:40:42 EET 2023","113","","api.ListUsersTest","","api.ListUsersTest","ListUserSpecifyPageTest","ListUserSpecifyPageTest()",""
-"passed","Tue Dec 26 11:40:39 EET 2023","Tue Dec 26 11:40:42 EET 2023","2863","","api.ListUsersTest","","api.ListUsersTest","ListUsersTests","ListUsersTests()",""
+"passed","Tue Dec 26 11:40:42 EET 2023","Tue Dec 26 11:40:42 EET 2023","113","","api.users.ListUsersTest","","api.users.ListUsersTest","ListUserSpecifyPageTest","ListUserSpecifyPageTest()",""
+"passed","Tue Dec 26 11:40:39 EET 2023","Tue Dec 26 11:40:42 EET 2023","2863","","api.users.ListUsersTest","","api.users.ListUsersTest","ListUsersTests","ListUsersTests()",""

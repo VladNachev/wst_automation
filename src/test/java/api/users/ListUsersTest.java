@@ -1,4 +1,4 @@
-package api;
+package api.users;
 
 import config.Constants;
 import config.Parameters;
@@ -14,7 +14,6 @@ import static org.hamcrest.Matchers.hasSize;
 @Feature("Get Users")
 @Tag("users")
 public class ListUsersTest {
-
     @BeforeAll
     public static void beforeAll(){
         // Generate token if needed
