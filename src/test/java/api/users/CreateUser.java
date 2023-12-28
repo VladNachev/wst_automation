@@ -15,28 +15,27 @@ import org.junit.jupiter.api.*;
 import java.time.LocalDateTime;
 import static io.restassured.mapper.ObjectMapperType.GSON;
 
-@Feature("Delete users")
+@Feature("Create user")
 @Tag("users")
-public class CreateDeleteUserTest {
+public class CreateUser {
     private static final Gson GSON = new GsonBuilder()
             .setPrettyPrinting().create();
-    private static String tempId;
+
     @BeforeAll
     public static void beforeAll(){
         // Generate token if needed
     }
 
     @Test
-    @DisplayName("Create and Delete user")
-    @Description("Deletion of user is possible via running the DELETE user request")
-    public void CreateDeleteUserTest(){
-        // Firstly, we need to create the user, so we can delete it afterward
+    @DisplayName("Create new user")
+    @Description("Creation of new user is possible by running the POST create request")
+    public void CreateUserTest(){
         // Define the DTO
         User Morpheus = User.builder()
                 .name("Morpheus " + LocalDateTime.now())
                 .job("Leader")
                 .build();
-        // Create the user
+        // Create User
         Response response = RestAssured.given()
                 .log().all()
                 .baseUri(Constants.BASE_API_URI)
@@ -51,26 +50,6 @@ public class CreateDeleteUserTest {
                 .post(Constants.BASE_API_USERS_ENDPOINT)
                 .prettyPeek();
         Assertions.assertEquals(201, response.statusCode()); // We are expecting statusCode 201
-        // Extracting the ID value, so we can use it in the Delete user validation
-        tempId = response.then()
-                .extract()
-                .path("id");
-        // Alternative way to extract the id value and save it into a local variable
-        /*
-        Integer itemId = response.jsonPath().get("id");
-         */
-        // Delete the user
-        Response deleteResponse = RestAssured.given()
-                .log().all()
-                .baseUri(Constants.BASE_API_URI)
-                .basePath(Constants.BASE_PATH)
-                .contentType(ContentType.JSON)
-                .accept(ContentType.JSON)
-                .header("User-Agent", "Mozilla")
-                // .header("Authorization", "Bearer " + TOKEN) // Pass Bearer token if required
-                // .auth().oauth2(TOKEN) // Another way to pass token
-                .delete(Constants.BASE_API_USERS_ENDPOINT + "/" + tempId)
-                .prettyPeek();
-        Assertions.assertEquals(204, deleteResponse.statusCode()); // We are expecting statusCode 204
     }
 }
+

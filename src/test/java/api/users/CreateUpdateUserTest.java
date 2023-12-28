@@ -15,9 +15,9 @@ import org.junit.jupiter.api.*;
 import java.time.LocalDateTime;
 import static io.restassured.mapper.ObjectMapperType.GSON;
 
-@Feature("Delete users")
+@Feature("Update user")
 @Tag("users")
-public class CreateDeleteUserTest {
+public class CreateUpdateUserTest {
     private static final Gson GSON = new GsonBuilder()
             .setPrettyPrinting().create();
     private static String tempId;
@@ -25,12 +25,11 @@ public class CreateDeleteUserTest {
     public static void beforeAll(){
         // Generate token if needed
     }
-
     @Test
-    @DisplayName("Create and Delete user")
-    @Description("Deletion of user is possible via running the DELETE user request")
-    public void CreateDeleteUserTest(){
-        // Firstly, we need to create the user, so we can delete it afterward
+    @DisplayName("Create and Update user")
+    @Description("Update of user is possible by running the POST update request")
+    public void CreateUserTest(){
+        // Firstly, we need to create the user, so we can update it afterward
         // Define the DTO
         User Morpheus = User.builder()
                 .name("Morpheus " + LocalDateTime.now())
@@ -51,7 +50,7 @@ public class CreateDeleteUserTest {
                 .post(Constants.BASE_API_USERS_ENDPOINT)
                 .prettyPeek();
         Assertions.assertEquals(201, response.statusCode()); // We are expecting statusCode 201
-        // Extracting the ID value, so we can use it in the Delete user validation
+        // Extracting the ID value, so we can use it in the Update user validation
         tempId = response.then()
                 .extract()
                 .path("id");
@@ -59,8 +58,10 @@ public class CreateDeleteUserTest {
         /*
         Integer itemId = response.jsonPath().get("id");
          */
-        // Delete the user
-        Response deleteResponse = RestAssured.given()
+        // Changing the user's job in the DTO
+        Morpheus.setJob("Zion president");
+        // Update the user
+        Response updateResponse = RestAssured.given()
                 .log().all()
                 .baseUri(Constants.BASE_API_URI)
                 .basePath(Constants.BASE_PATH)
@@ -69,8 +70,10 @@ public class CreateDeleteUserTest {
                 .header("User-Agent", "Mozilla")
                 // .header("Authorization", "Bearer " + TOKEN) // Pass Bearer token if required
                 // .auth().oauth2(TOKEN) // Another way to pass token
-                .delete(Constants.BASE_API_USERS_ENDPOINT + "/" + tempId)
+                .body(GSON.toJson(Morpheus))
+                .when()
+                .put(Constants.BASE_API_USERS_ENDPOINT + "/" + tempId)
                 .prettyPeek();
-        Assertions.assertEquals(204, deleteResponse.statusCode()); // We are expecting statusCode 204
+        Assertions.assertEquals(200, updateResponse.statusCode()); // We are expecting statusCode 200
     }
 }

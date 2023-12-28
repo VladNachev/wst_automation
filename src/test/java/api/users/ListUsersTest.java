@@ -8,7 +8,6 @@ import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.hamcrest.CoreMatchers;
 import org.junit.jupiter.api.*;
-
 import static org.hamcrest.Matchers.hasSize;
 
 @Feature("Get Users")
