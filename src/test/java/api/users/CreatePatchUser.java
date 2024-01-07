@@ -28,9 +28,9 @@ public class CreatePatchUser {
 
     @Test
     @DisplayName("Create and Patch user")
-    @Description("Patching user is possible via runnung the PATCH request")
+    @Description("Patching user is possible via running the PATCH request")
     public void CreatePatchUser(){
-        // Firstly, we need to create the user, so we can update it afterward
+        // Firstly, we need to create the user, so we can patch it afterward
         // Define the DTO
         User Morpheus = User.builder()
                 .name("Morpheus " + LocalDateTime.now())
@@ -51,7 +51,7 @@ public class CreatePatchUser {
                 .post(Constants.BASE_API_USERS_ENDPOINT)
                 .prettyPeek();
         Assertions.assertEquals(201, response.statusCode()); // We are expecting statusCode 201
-        // Extracting the ID value, so we can use it in the Update user validation
+        // Extracting the ID value, so we can use it in the Patch user validation
         tempId = response.then()
                 .extract()
                 .path("id");
