@@ -1,4 +1,11 @@
-# Simple automation framework for testing APIs and Web Services
+# Automation framework for testing APIs and Web Services
+
+Used technologies in the project:
+
+- Java
+- JUnit
+- RestAssured
+- Allure for reporting
 
 ## Preconditions
 - [x] JDK 11+
